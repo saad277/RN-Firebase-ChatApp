@@ -3,7 +3,7 @@
 export default class Utility {
 
 
-    static isvalid = (term) => {
+    static isValidField = (term) => {
 
         let length = term.trim().length
 

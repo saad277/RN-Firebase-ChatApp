@@ -5,7 +5,7 @@ import Color from '../utils/Colors'
 import Constants from '../Const/Constants'
 
 
-const EmailTextField = ({ term, placeholder, OnTermChange, onValidateEmailAddress, error }) => {
+const EmailTextField = ({ term, placeholder, onTermChange, onValidateEmailAddress, error }) => {
 
 
     return (
@@ -17,8 +17,9 @@ const EmailTextField = ({ term, placeholder, OnTermChange, onValidateEmailAddres
                             style={styles.TextField}
                             placeholder={placeholder}
                             value={term}
-                            onChangeText={OnTermChange}
+                            onChangeText={onTermChange}
                             onEndEditing={onValidateEmailAddress}
+                            
                             />
                         </View>
                     </View>

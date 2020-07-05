@@ -9,7 +9,7 @@ import { exp } from 'react-native-reanimated'
 
 
 
-const PasswordTextField = ({ term, placeHolder, OnTermChange, onValidatePasswordField, error }) => {
+const PasswordTextField = ({ term, placeHolder, onTermChange, onValidatePasswordField, error }) => {
 
 
     return (
@@ -24,7 +24,7 @@ const PasswordTextField = ({ term, placeHolder, OnTermChange, onValidatePassword
                     style={styles.TextField}
                     placeholder={placeHolder}
                     value={term}
-                    onChangeText={OnTermChange}
+                    onChangeText={onTermChange}
                     onEndEditing={onValidatePasswordField} />
                     
                 </View>

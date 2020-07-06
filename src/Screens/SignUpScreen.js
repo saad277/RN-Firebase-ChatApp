@@ -15,6 +15,8 @@ import Constants from '../Const/Constants'
 import DismissKeyboard from '../Components/DismissKeyboard'
 import Utility from '../utils/Utility'
 
+import auth from '@react-native-firebase/auth';
+
 const SignUpScreen = () => {
 
     const [email, setEmail] = useState("")
@@ -38,30 +40,89 @@ const SignUpScreen = () => {
         return isValidPassword;
     }
 
+    const performAuth = () => {
+
+        const isValidEmail = validateEmail()
+        const isValidPassword = validatePassword()
+
+        if (isValidEmail && isValidPassword) {
+
+            setEmailError("")
+            setPasswordError("")
+            registration(email, password)
+        }
+
+    }
+
+    const registration = (email, password) => {
+
+        console.log(email, password)
+
+
+        try {
+            setLoading(true)
+
+            
+            auth().signInWithEmailAndPassword(email,password)
+            .then(user=>{
+
+                
+                setLoading(false)
+                Alert.alert("Logged In")
+
+            }).catch((error)=>{
+
+                auth().createUserWithEmailAndPassword(email, password)
+                .then((user) => {
+
+                    setLoading(false)
+                    Alert.alert("Created A New USer ")
+                })
+                .catch((error) => {
+
+                    setLoading(false)
+                    console.log("error")
+                    Alert.alert(error.message)
+                })
+
+
+            })
+
+          
+        }
+        catch (error) {
+
+            setLoading(false)
+            console.log("Error")
+            Alert.alert(error.message)
+        }
+
+    }
+
 
     return (
         <DismissKeyboard>
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View>
                     <SafeAreaView>
-                    <Image style={styles.logo} source={Images.logo}></Image>
-                    
-                    <EmailTextField
-                    term={email}
-                    error={emailError}
-                    placeholder={Strings.EmailPlaceHolder}
-                    OnTermChange={newEmail=>setEmail(newEmail)}
-                    onValidateEmailAddress={validateEmail}
-                    />
-                    <PasswordTextField
-                     term={password}
-                     error={passwordError}
-                     placeHolder={Strings.PasswordPlaceHolder}
-                     onTermChange={newPassword=>setPassword(newPassword)} 
-                     onValidatePasswordField={validatePassword}  
-                    />
+                        <Image style={styles.logo} source={Images.logo}></Image>
 
-                    <Button title={Strings.Join} onPress={()=>{}} isLoading={isLoading} />
+                        <EmailTextField
+                            term={email}
+                            error={emailError}
+                            placeholder={Strings.EmailPlaceHolder}
+                            onTermChange={newEmail => setEmail(newEmail)}
+                            onValidateEmailAddress={validateEmail}
+                        />
+                        <PasswordTextField
+                            term={password}
+                            error={passwordError}
+                            placeHolder={Strings.PasswordPlaceHolder}
+                            onTermChange={newPassword => setPassword(newPassword)}
+                            onValidatePasswordField={validatePassword}
+                        />
+
+                        <Button title={"Join Now"} onPress={() => performAuth()} isLoading={isLoading} />
 
                     </SafeAreaView>
                 </View>

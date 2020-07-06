@@ -10,7 +10,7 @@ const EmailTextField = ({ term, placeholder, onTermChange, onValidateEmailAddres
 
     return (
                     <View>
-                        <Text>{error}</Text>
+                        <Text style={styles.ErrorText}>{error}</Text>
                         <View style={styles.TextFieldView}>
                             <TextInput
                             autoCorrect={false}

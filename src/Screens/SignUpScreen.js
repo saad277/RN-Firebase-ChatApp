@@ -17,7 +17,7 @@ import Utility from '../utils/Utility'
 
 import auth from '@react-native-firebase/auth';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -62,33 +62,44 @@ const SignUpScreen = () => {
         try {
             setLoading(true)
 
-            
-            auth().signInWithEmailAndPassword(email,password)
-            .then(user=>{
 
-                
-                setLoading(false)
-                Alert.alert("Logged In")
+            auth().signInWithEmailAndPassword(email, password)
+                .then(user => {
 
-            }).catch((error)=>{
-
-                auth().createUserWithEmailAndPassword(email, password)
-                .then((user) => {
 
                     setLoading(false)
-                    Alert.alert("Created A New USer ")
+                    // Alert.alert("Logged In")
+
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: "GroupScreen" }]
+                    })
+
+                }).catch((error) => {
+
+                    auth().createUserWithEmailAndPassword(email, password)
+                        .then((user) => {
+
+                            setLoading(false)
+                            // Alert.alert("Created A New USer ")
+
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "Groups Screen" }]
+                            })
+
+                        })
+                        .catch((error) => {
+
+                            setLoading(false)
+                            console.log("error")
+                           // Alert.alert(error.message)
+                        })
+
+
                 })
-                .catch((error) => {
-
-                    setLoading(false)
-                    console.log("error")
-                    Alert.alert(error.message)
-                })
 
 
-            })
-
-          
         }
         catch (error) {
 

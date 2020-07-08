@@ -38,7 +38,7 @@ const ChatFlow = () => {
                 />
 
                 <Stack.Screen
-                    name="Chat"
+                    name="ChatScreen"
                     component={ChatScreen}
                     options={{ title: "Chat" }}
                 />

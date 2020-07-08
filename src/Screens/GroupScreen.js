@@ -27,6 +27,7 @@ const GroupScreen = ({ navigation }) => {
                 if (change.type == "added") {
 
                     console.log("New Group", change.doc.data())
+                    console.log("added")
                     groupArray.push(change.doc.data())
                 }
 

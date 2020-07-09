@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
-import { StyleSheet, View, Text, Alert, Image, TextInput} from 'react-native'
+import { StyleSheet, View, Text, Alert, Image, TextInput,Button} from 'react-native'
 
 import Colors from '../utils/Colors'
 import Utility from '../utils/Utility'
 import Strings from '../Const/Strings'
 import Images from '../Const/Images'
 import Constants from '../Const/Constants'
-import Button from '../Components/Button'
+
 
 
 import ButtonWithBackground from '../Components/ButtonWithBackground'
@@ -32,7 +32,8 @@ const MessageFieldView = ({ term, placeHolder, onTermChange, onValidateTextField
                     onChangeText={onTermChange}
                     onEndEditing={onValidateTextField}
                 />
-                <Button title={Strings.Send} color={Colors.white} />
+
+                <Button title={Strings.Send} color={Colors.uaStudiosGreen} style={styles.button} onPress={onSubmit}/>
             </View>
             
 
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
         width: Constants.screenWidth,
         flex: 1,
         justifyContent: "space-between",
+     
     },
     fieldView: {
         flex: 1,
@@ -71,11 +73,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.smoke,
 
     },
-    Button: {
+    button: {
 
         flex: 1,
         alignSelf: "center",
-        width: "25%",
+        width: "75%",
         height: "100%"
     }
 

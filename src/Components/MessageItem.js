@@ -16,7 +16,7 @@ import auth from '@react-native-firebase/auth'
 
 
 
-const MessageItem = () => {
+const MessageItem = ({item}) => {
 
     const userId = auth().currentUser.uid
 
@@ -43,6 +43,10 @@ const MessageItem = () => {
     }
 
 
+    return (
+
+        messageView()
+    )
 
 
 }
@@ -52,8 +56,8 @@ const styles = StyleSheet.create({
 
     othersMessageContainerView: {
 
-        width: Constants.screenWidth-50,
-      
+        width: Constants.screenWidth - 50,
+
         backgroundColor: Colors.gray,
         borderRadius: 5,
         marginLeft: 25,

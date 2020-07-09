@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
 
     othersMessageContainerView: {
 
-        width: Constants.screenWidth,
-        height: Constants.screenHeight,
+        width: Constants.screenWidth-50,
+      
         backgroundColor: Colors.gray,
         borderRadius: 5,
         marginLeft: 25,

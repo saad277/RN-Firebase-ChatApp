@@ -29,11 +29,12 @@ const MessageFieldView = ({ term, placeHolder, onTermChange, onValidateTextField
                     style={styles.textField}
                     placeholder={placeHolder}
                     value={term}
-                    onChange={onTermChange}
+                    onChangeText={onTermChange}
                     onEndEditing={onValidateTextField}
                 />
+                <Button title={Strings.Send} color={Colors.white} />
             </View>
-            <Button title={Strings.Send} color={Colors.white} />
+            
 
         </View>
     )
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     },
     textField: {
         fontSize: 14,
+        flex:1,
         marginRight: 10,
         paddingLeft: 10,
         width: "75%",

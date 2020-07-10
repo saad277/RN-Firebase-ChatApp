@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react'
 
-import { StyleSheet, View, Text, FlatList, TouchableOpacity, Alert, Group } from 'react-native'
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, Alert, Group,RefreshControl } from 'react-native'
 
 import ButtonWithBackground from '../Components/ButtonWithBackground'
 
@@ -13,6 +13,14 @@ const GroupScreen = ({ navigation }) => {
 
 
     const [groups, setGroups] = useState([])
+
+    const [isFetching, setFetching] = useState(false)
+
+    const onRefresh = () => {
+
+        setFetching(true)
+        getChats();
+    }
 
 
 
@@ -29,6 +37,8 @@ const GroupScreen = ({ navigation }) => {
                     console.log("New Group", change.doc.data())
                     console.log("added")
                     groupArray.push(change.doc.data())
+
+                    setFetching(false)
                 }
 
                 if (change.type == "modified") {
@@ -42,6 +52,7 @@ const GroupScreen = ({ navigation }) => {
                 }
 
                 setGroups(groupArray)
+                setFetching(false)
 
             })
 
@@ -88,6 +99,8 @@ const GroupScreen = ({ navigation }) => {
             <FlatList
                 data={groups}
                 keyExtractor={(item, index) => "key" + index}
+                onRefresh={() => onRefresh()}
+                refreshing={isFetching}
                 renderItem={({ item }) => {
 
                     return (

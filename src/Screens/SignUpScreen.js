@@ -85,7 +85,7 @@ const SignUpScreen = ({ navigation }) => {
 
                             navigation.reset({
                                 index: 0,
-                                routes: [{ name: "Groups Screen" }]
+                                routes: [{ name: "GroupsScreen" }]
                             })
 
                         })

@@ -16,7 +16,7 @@ const ChatScreen = ({ route, navigation }) => {
 
     const [messageList, setMessageList] = useState([])
     const [message, setMessage] = useState('')
-    
+
     const [isJoined, setIsJoined] = useState(false)
 
     const { item } = route.params
@@ -25,17 +25,87 @@ const ChatScreen = ({ route, navigation }) => {
     useEffect(() => {
         console.log(item)
 
-        getMessages()
+        getMessages();
+        getUserAlreadyJoinedChatOrNot();
     }, [])
 
 
 
 
+    const getUserAlreadyJoinedChatOrNot = () => {
 
+
+        firestore().collection("members").doc(item.groupID).collection("member")
+            .where("userID", "==", userID)
+            .get().then((querySnapshot) => {
+
+                if (querySnapshot.size > 0) {
+                    querySnapshot.forEach((doc) => {
+
+                        if (doc.data() != null) {
+                            setIsJoined(true)
+
+                        } else {
+                            setIsJoined(false)
+                            showAlertToJoinGroup()
+                        }
+                    })
+                }
+                else {
+                    showAlertToJoinGroup()
+                }
+            }).catch((error) => {
+
+                console.log("error getting document " + error)
+            })
+
+
+    }
+
+  const showAlertToJoinGroup=()=> {
+        
+    Alert.alert(
+            Strings.JoinChat,
+            Strings.JoinChatConfirmMessage,
+            [{
+                text: 'Yes', onPress: () => {
+                    joinGroup()
+                }
+            }, {
+                text: 'No', onPress: () => {
+
+                }
+            }
+            ],
+            { cancelable: false }
+        )
+    }
+    const joinGroup=()=>{
+
+        const groupMemberRef=firestore().collection("members").doc(item.groupID).collection("member").doc()
+
+        groupMemberRef.set({
+
+            userID:userID
+        
+        }).then(()=>{
+
+            setIsJoined(true)
+            Alert.alert(Strings.joinMessage)
+            setMessage("")
+        
+        }).catch((error)=>{
+
+            Alert.alert(Strings.JoinGroupError)
+            setIsJoined(false)
+
+        })
+
+    }
 
 
     function getMessages() {
-       
+
         var messages = []
 
         firestore().collection("message").doc(item.groupID).collection("messages")

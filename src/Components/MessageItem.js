@@ -22,7 +22,7 @@ const MessageItem = ({item}) => {
 
     const messageView = () => {
 
-        if (userId == MessageItem.senderId) {
+        if (userId == item.senderId) {
 
             return (
                 <View style={styles.othersMessageContainerView}>
@@ -34,9 +34,9 @@ const MessageItem = ({item}) => {
         } else {
 
             return (
-                <View style={styles.othersMessageContainerView}>
-                    <Text style={[styles.senderName, { textAlign: "right" }]}>{item.senderEmail}</Text>
-                    <Text style={[styles.message, { textAlign: "right" }]}>{item.message}</Text>
+                <View style={styles.myMessageContainerView}>
+                    <Text style={[styles.senderName, ]}>{item.senderEmail}</Text>
+                    <Text style={[styles.message, ]}>{item.message}</Text>
                 </View>
             )
         }

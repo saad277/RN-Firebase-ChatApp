@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react'
 
-import { StyleSheet, View, Text, FlatList, TouchableOpacity, Alert, Group,RefreshControl } from 'react-native'
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, Alert, Group, RefreshControl } from 'react-native'
 
 import ButtonWithBackground from '../Components/ButtonWithBackground'
 
@@ -8,6 +8,7 @@ import Images from '../Const/Images'
 import GroupItems from '../Components/GroupItems'
 
 import firestore from '@react-native-firebase/firestore'
+import auth, { firebase } from "@react-native-firebase/auth"
 
 const GroupScreen = ({ navigation }) => {
 
@@ -85,7 +86,7 @@ const GroupScreen = ({ navigation }) => {
 
                 return (
                     <ButtonWithBackground
-                        onPress={() => { }}
+                        onPress={() => signOutUser()}
                         image={Images.logout}
                     />
                 )
@@ -93,6 +94,24 @@ const GroupScreen = ({ navigation }) => {
             }
         })
     })
+
+    const signOutUser = async () => {
+
+
+        try {
+
+            await firebase.auth().signOut()
+
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "SplashScreen" }]
+            })
+        } catch (error) {
+
+
+        }
+
+    }
 
     return (
         <View style={styles.container} >

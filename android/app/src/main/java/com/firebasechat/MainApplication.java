@@ -16,6 +16,8 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
 
+import com.airbnb.android.react.lottie.LottiePackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -34,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactNativeFirebaseAppPackage();
           new ReactNativeFirebaseAuthPackage();
           new ReactNativeFirebaseFirestorePackage();
+          packages.add(new LottiePackage());
           return packages;
         }
 

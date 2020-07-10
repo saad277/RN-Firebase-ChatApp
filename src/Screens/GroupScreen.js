@@ -8,14 +8,17 @@ import Images from '../Const/Images'
 import GroupItems from '../Components/GroupItems'
 
 import firestore from '@react-native-firebase/firestore'
-import auth, { firebase } from "@react-native-firebase/auth"
+import auth from "@react-native-firebase/auth"
+
+import LottieView from 'lottie-react-native'
+
 
 const GroupScreen = ({ navigation }) => {
 
 
     const [groups, setGroups] = useState([])
 
-    const [isFetching, setFetching] = useState(false)
+    const [isFetching, setFetching] = useState(true)
 
     const onRefresh = () => {
 
@@ -64,7 +67,14 @@ const GroupScreen = ({ navigation }) => {
 
     useEffect(() => {
 
-        getChats()
+
+
+        setTimeout(() => {
+
+            getChats()
+            setFetching(false)
+
+        }, 3500)
 
     }, [])
 
@@ -100,7 +110,7 @@ const GroupScreen = ({ navigation }) => {
 
         try {
 
-            await firebase.auth().signOut()
+            await auth().signOut()
 
             navigation.reset({
                 index: 0,
@@ -113,27 +123,47 @@ const GroupScreen = ({ navigation }) => {
 
     }
 
+    const groupView = () => {
+
+        return (
+            <View style={styles.container} >
+                <FlatList
+                    data={groups}
+                    keyExtractor={(item, index) => "key" + index}
+                    onRefresh={() => onRefresh()}
+                    refreshing={isFetching}
+                    renderItem={({ item }) => {
+
+                        return (
+                            <TouchableOpacity onPress={() => navigation.navigate("ChatScreen", { item })}>
+                                <GroupItems item={item} />
+                            </TouchableOpacity>
+                        )
+
+                    }}
+
+                >
+
+                </FlatList>
+            </View>)
+
+
+    }
+
+    const lottieView = () => {
+
+
+        return (
+            <View style={styles.container}>
+                <LottieView source={require("../../assets/football.json")} autoPlay loop ></LottieView>
+            </View>
+        )
+    }
+
     return (
-        <View style={styles.container} >
-            <FlatList
-                data={groups}
-                keyExtractor={(item, index) => "key" + index}
-                onRefresh={() => onRefresh()}
-                refreshing={isFetching}
-                renderItem={({ item }) => {
 
-                    return (
-                        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen", { item })}>
-                            <GroupItems item={item} />
-                        </TouchableOpacity>
-                    )
+        isFetching ? lottieView():groupView()  
 
-                }}
-
-            >
-
-            </FlatList>
-        </View>
     )
 
 

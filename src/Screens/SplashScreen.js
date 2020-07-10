@@ -8,6 +8,8 @@ import Colors from '../utils/Colors'
 
 import auth from '@react-native-firebase/auth'
 
+import LottieView from 'lottie-react-native'
+
 const SplashScreen = ({ navigation }) => {
 
 
@@ -44,7 +46,7 @@ const SplashScreen = ({ navigation }) => {
 
                 }
 
-            }, 1000)
+            }, 2500)
 
 
 
@@ -57,8 +59,12 @@ const SplashScreen = ({ navigation }) => {
     return (
 
         <View style={styles.container}>
-            <Image style={styles.logo} source={Images.logo}></Image>
-            <Text>assa</Text>
+
+            <View style={styles.lottieView}>
+                <LottieView source={require("../../assets/chat-button.json")} autoPlay={true} loop={true}></LottieView>
+            </View>
+            
+            
         </View>
     )
 
@@ -70,6 +76,12 @@ const styles = StyleSheet.create({
     logo: {
         alignSelf: "center",
         margin: Constants.screenHeight + 0.04
+    },
+    
+    lottieView:{
+
+        width:"100%",
+        height:0.6*Constants.screenHeight,
     },
 
     container: {
